@@ -1,29 +1,10 @@
-![Image description](https://i1.faceprep.in/ProGrad/prograd-logo.png)
 
-# ProGrad Lab | JS SMART PHONE
+# Kalvium Lab | JS SMART PHONE
 
 We have learned Object-oriented programming and how class and inheritance work in JavaScript. Now lets work with our smart phones, applying all of the concepts we have just learned.
 
-## What should you do
-```
-Fork this repo
-Clone this repo
-Practice OOPs Features
-```
-
-## How To Submit
-```
-Upon completion, run the following commands:
-
-git add .
-git commit -m "ProGrad ID"
-git push origin master
-
-And finally, create a pull request so your ProGrad Mentor (PM) can review your work.
-```
-
 ## Instructions
-We must write the correct code in the script.js file. In this file you will find the following starter code:
+We must write the correct code in the mobile.js file. In this file you will find the following starter code:
 ```
 class SmartPhone{
 
@@ -170,7 +151,7 @@ IPhone class should extend the SmartPhone class and add two methods to it: displ
 - if the calculated price is less than or equal to zero, return ```Customer has no more amount```.
 - else return the remaining amount after buying the android phone.
 ```
-return 'Customer has remaining Rs.'+this.price +' after buying the Iphone';
+return 'Customer has remaining Rs.'+this.price +' after buying an Iphone';
 ```
 - else if the amount is less than the Iphone price, then return
 ```
@@ -205,5 +186,5 @@ Create a class called Mobile Campus and a method to it:  changeMobileAvailabilit
 ```
 
 
-Happy Coding ProGrads❤️
+Happy Coding Kalvium❤️
 
