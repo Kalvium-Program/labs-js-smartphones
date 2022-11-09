@@ -1,4 +1,6 @@
 
+![Logo-nav](https://user-images.githubusercontent.com/109285740/200904587-4876298e-9a2b-4732-9569-db4da18d4b86.png)
+
 # Kalvium Lab | JS SMART PHONE
 
 We have learned Object-oriented programming and how class and inheritance work in JavaScript. Now lets work with our smart phones, applying all of the concepts we have just learned.
