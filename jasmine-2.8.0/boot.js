@@ -1,12 +1,4 @@
-/**
- Starting with version 2.0, this file "boots" Jasmine, performing all of the necessary initialization before executing the loaded environment and all of a project's specs. This file should be loaded after `jasmine.js` and `jasmine_html.js`, but before any project source files or spec files are loaded. Thus this file can also be used to customize Jasmine for a project.
 
- If a project is using Jasmine via the standalone distribution, this file can be customized directly. If a project is using Jasmine via the [Ruby gem][jasmine-gem], this file can be copied into the support directory via `jasmine copy_boot_js`. Other environments (e.g., Python) will have different mechanisms.
-
- The location of `boot.js` can be specified and/or overridden in `jasmine.yml`.
-
- [jasmine-gem]: http://github.com/pivotal/jasmine-gem
- */
 
 (function() {
 
@@ -51,21 +43,18 @@
 
   var filterSpecs = !!queryString.getParam("spec");
 
-  var config = {
-    failFast: queryString.getParam("failFast"),
-    oneFailurePerSpec: queryString.getParam("oneFailurePerSpec"),
-    hideDisabled: queryString.getParam("hideDisabled")
-  };
+  var catchingExceptions = queryString.getParam("catch");
+  env.catchExceptions(typeof catchingExceptions === "undefined" ? true : catchingExceptions);
+
+  var throwingExpectationFailures = queryString.getParam("throwFailures");
+  env.throwOnExpectationFailure(throwingExpectationFailures);
 
   var random = queryString.getParam("random");
-
-  if (random !== undefined && random !== "") {
-    config.random = random;
-  }
+  env.randomizeTests(random);
 
   var seed = queryString.getParam("seed");
   if (seed) {
-    config.seed = seed;
+    env.seed(seed);
   }
 
   /**
@@ -74,7 +63,9 @@
    */
   var htmlReporter = new jasmine.HtmlReporter({
     env: env,
-    navigateWithNewParam: function(key, value) { return queryString.navigateWithNewParam(key, value); },
+    onRaiseExceptionsClick: function() { queryString.navigateWithNewParam("catch", !env.catchingExceptions()); },
+    onThrowExpectationsClick: function() { queryString.navigateWithNewParam("throwFailures", !env.throwingExpectationFailures()); },
+    onRandomClick: function() { queryString.navigateWithNewParam("random", !env.randomTests()); },
     addToExistingQueryString: function(key, value) { return queryString.fullStringWithNewParam(key, value); },
     getContainer: function() { return document.body; },
     createElement: function() { return document.createElement.apply(document, arguments); },
@@ -96,11 +87,9 @@
     filterString: function() { return queryString.getParam("spec"); }
   });
 
-  config.specFilter = function(spec) {
+  env.specFilter = function(spec) {
     return specFilter.matches(spec.getFullName());
   };
-
-  env.configure(config);
 
   /**
    * Setting up timing functions to be able to be overridden. Certain browsers (Safari, IE 8, phantomjs) require this hack.
